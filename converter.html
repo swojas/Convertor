@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IST to UTC Converter</title>
+</head>
+<body>
+    <h1>IST to UTC Converter</h1>
+    <label for="istTime">Enter IST Time (HH:MM:SS):</label><br>
+    <input type="text" id="istTime" name="istTime"><br>
+    <button onclick="convertISTtoUTC()">Convert</button>
+    <p id="time"></p>
+ 
+    <script>
+        function convertISTtoUTC() {
+            // Get the input time in IST
+            var istTime = document.getElementById("istTime").value;
+            var istHours = istTime.split(":")[0];
+            var istMinutes = istTime.split(":")[1];
+            var istSeconds = istTime.split(":")[2];
+ 
+            // Create a new date object with the IST time
+            var dateIST = new Date();
+            dateIST.setUTCHours(istHours, istMinutes, istSeconds);
+ 
+            // Convert IST to UTC by subtracting the time zone offset
+            var dateUTC = new Date(dateIST.getTime() - (4.5 * 60 * 60 * 1000));
+ 
+            // Format the date and time
+            var utcHours = dateUTC.getUTCHours().toString().padStart(2, '0');
+            var utcMinutes = dateUTC.getUTCMinutes().toString().padStart(2, '0');
+            var utcSeconds = dateUTC.getUTCSeconds().toString().padStart(2, '0');
+            var timeUTC = utcHours + ":" + utcMinutes + ":" + utcSeconds;
+ 
+            // Display the UTC time
+            document.getElementById("time").innerHTML = "Converted UTC Time: " + timeUTC;
+        }
+    </script>
+</body>
+</html>
